@@ -1,0 +1,98 @@
+<mvc:View controllerName="ate.activity.book.ATE.controller.AddDetail" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core" xmlns:semantic="sap.f.semantic" xmlns:mvc="sap.ui.core.mvc">
+	<semantic:SemanticPage id="detailPage" showFooter="true">
+		<semantic:titleHeading>
+			<Title text="{Name}" level="H2"/>
+		</semantic:titleHeading>
+		<semantic:content>
+			<VBox>
+				<f:Form id="newEntitySimpleForm" class="sapFSemanticPageAlignContent" editable="true">
+					<f:title>
+						<core:Title text="Address"/>
+					</f:title>
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4"
+							emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Numeric 8-figures">
+									<f:fields>
+										<Input visible="true" value="{ path: 'new>/Nodeid', type: 'sap.ui.model.odata.type.String' , constraints:{ maxLength:8, nullable:false } }"
+											id="entID"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Char20">
+									<f:fields>
+										<Input visible="true" value="{ path: 'new>/Name', type: 'sap.ui.model.odata.type.String' , constraints:{ maxLength:20, nullable:false } }"
+											id="entName"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Two-digit no.">
+									<f:fields>
+										<Input visible="true" value="{ path: 'new>/Age', type: 'sap.ui.model.odata.type.String' , constraints:{ maxLength:2, nullable:false } }"
+											id="entAge"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Char20">
+									<f:fields>
+										<Input visible="true" value="{ path: 'new>/City', type: 'sap.ui.model.odata.type.String' , constraints:{ maxLength:20} }" id="entCity"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="Char20">
+									<f:fields>
+										<Input visible="true" value="{ path: 'new>/Country', type: 'sap.ui.model.odata.type.String' , constraints:{ maxLength:20} }" id="entCountry"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+				<Table id="lineItemsList" width="auto" items="{new>/parentToChild}" updateFinished="onListUpdateFinished"
+					noDataText="{i18n>detailLineItemTableNoDataText}" class="sapUiResponsiveMargin">
+					<headerToolbar>
+						<Toolbar id="lineItemsToolbar">
+							<Title id="lineItemsHeader" text="{Name}"/>
+							<ToolbarSpacer/>
+							<Button icon="sap-icon://add" press="onAddChild"/>
+						</Toolbar>
+					</headerToolbar>
+					<columns>
+						<Column>
+							<Text text="Name"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+							<Text text="Age"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right">
+							<Text text="City"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Input value="{Cname}"/>
+								<Input value="{Cage}"/>
+								<Input value="{Ccity}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</VBox>
+		</semantic:content>
+		<!--Semantic ShareMenu Buttons-->
+		<semantic:footerCustomActions>
+			<Button id="entitySave" text="Save" press="onSave"/>
+			<Button id="entityCancel" text="Cancel" press="onCancel"/>
+		</semantic:footerCustomActions>
+		<semantic:fullScreenAction>
+			<semantic:FullScreenAction id="enterFullScreen"
+				visible="{= !${device>/system/phone} &amp;&amp; !${appView>/actionButtonsInfo/midColumn/fullScreen}}" press=".toggleFullScreen"/>
+		</semantic:fullScreenAction>
+		<semantic:exitFullScreenAction>
+			<semantic:ExitFullScreenAction id="exitFullScreen"
+				visible="{= !${device>/system/phone} &amp;&amp; ${appView>/actionButtonsInfo/midColumn/fullScreen}}" press=".toggleFullScreen"/>
+		</semantic:exitFullScreenAction>
+	</semantic:SemanticPage>
+</mvc:View>
