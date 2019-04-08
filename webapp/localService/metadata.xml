@@ -1,0 +1,36 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZOFFLINEUSECASE_SRV_01" xml:lang="en" sap:schema-version="1">
+			<EntityType Name="parent" sap:content-version="1">
+				<Key><PropertyRef Name="Nodeid"/></Key><Property Name="Nodeid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="Numeric 8-figures"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false"/><Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Char20" sap:creatable="false"/><Property Name="Age" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Two-digit no." sap:creatable="false"/><Property Name="City" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Char20" sap:creatable="false"/><Property Name="Country" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Char20" sap:creatable="false"/><NavigationProperty Name="parentToChild" Relationship="ZOFFLINEUSECASE_SRV_01.parentChild" FromRole="FromRole_parentChild"
+					ToRole="ToRole_parentChild"/></EntityType>
+			<EntityType Name="child" sap:content-version="1">
+				<Key><PropertyRef Name="Nodeid"/><PropertyRef Name="Cid"/></Key><Property Name="Nodeid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="Numeric 8-figures"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false"/><Property Name="Cid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="Numeric 8-figures"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false"/><Property Name="Cname" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Char20" sap:creatable="false"/><Property Name="Cage" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Char20" sap:creatable="false"/><Property Name="Ccity" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Char20" sap:creatable="false"/><Property Name="Ccountry" Type="Edm.String" MaxLength="20" sap:unicode="false" sap:label="Char20" sap:creatable="false"/></EntityType>
+			<EntityType Name="gchild" sap:content-version="1">
+				<Key><PropertyRef Name="Gcid"/><PropertyRef Name="Nodeid"/><PropertyRef Name="Cid"/></Key><Property Name="Gcid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="char8" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Nodeid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="char8" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Cid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="char8" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Gcname" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Char20" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Gcage" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Version Number Component"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Gccity" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Char20" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Gccountry" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Char20" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<Association Name="parentChild" sap:content-version="1"><End Type="ZOFFLINEUSECASE_SRV_01.parent" Multiplicity="1" Role="FromRole_parentChild"/><End Type="ZOFFLINEUSECASE_SRV_01.child" Multiplicity="*" Role="ToRole_parentChild"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_parentChild"><PropertyRef Name="Nodeid"/></Principal>
+					<Dependent Role="ToRole_parentChild"><PropertyRef Name="Nodeid"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="ZOFFLINEUSECASE_SRV_01_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet Name="parentSet" EntityType="ZOFFLINEUSECASE_SRV_01.parent" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:content-version="1"/><EntitySet Name="childSet" EntityType="ZOFFLINEUSECASE_SRV_01.child" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:content-version="1"/><EntitySet Name="gchildSet" EntityType="ZOFFLINEUSECASE_SRV_01.gchild" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:content-version="1"/>
+				<AssociationSet Name="parentChildSet" Association="ZOFFLINEUSECASE_SRV_01.parentChild" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:content-version="1"><End EntitySet="parentSet" Role="FromRole_parentChild"/><End EntitySet="childSet" Role="ToRole_parentChild"/></AssociationSet>
+			</EntityContainer><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
